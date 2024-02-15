@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primary Colors</title>
+
+    <style>
+        p,
+        label {
+            font:
+                1rem 'Fira Sans',
+                sans-serif;
+        }
+
+        input {
+            margin: 0.4rem;
+        }
+    </style>
+
+</head>
+
+<body>
+    <p>Primary Colors:</p>
+
+    <div>
+        <input type="color" id="head" name="head" value="#C9980B" onchange="updatePrimaryColor(this.value)" />
+        <label for="head">Color</label>
+    </div>
+
+    <div>
+        <input type="color" id="body" name="body" value="#2980b9" />
+        <label for="body">dark</label>
+    </div>
+
+    <div>
+        <input type="color" id="body" name="body" value="#5ab9ea" />
+        <label for="body">Light</label>
+    </div>
+
+    <div id="content">
+        <ul>
+            <li id="primary_color_color">--primary-color: #C9980B;</li>
+            <li id="primary_color_dark">--primary-dark: #FFC300;</li>
+            <li id="primary_color_light">--primary-light: #FFD235;</li>
+        </ul>
+    </div>
+
+    <button onclick="copyInnerHTML()">Copy Color Pallet</button>
+
+    <script>
+        // Hex Codes: #926C15, #C9980B, #FFC300, #FFD235, #FFE169
+        var primary_color = '#C9980B';
+        var primary_dark = '#FFC300';
+        var primary_light = '#FFD235';
+
+        // Set the value of the color input with id "head" to primary_color
+        document.getElementById('head').value = primary_color;
+
+        // Function to update primary_color variable and input value
+        function updatePrimaryColor(colorValue) {
+            primary_color = colorValue;
+            primary_color_code = '--primary-color: ' + colorValue + ';';
+            document.getElementById('head').value = primary_color;
+            document.getElementById('primary_color_color').innerText = primary_color_code
+        }
+
+        function copyInnerHTML() {
+            var content = document.getElementById('content');
+            var range = document.createRange();
+            range.selectNode(content);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            alert('Inner HTML has been copied!');
+        }
+    </script>
+
+</body>
+
+</html>
